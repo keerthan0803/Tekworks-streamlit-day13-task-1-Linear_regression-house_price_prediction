@@ -15,7 +15,7 @@ def load_model():
             st.stop()
         with open(model_path, 'rb') as f:
             model = pickle.load(f)
-        st.success("✅ Model loaded successfully!")
+        
         return model
     except Exception as e:
         st.error(f"❌ Error loading model: {str(e)}")
