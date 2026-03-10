@@ -50,6 +50,8 @@ pip install -r requirements.txt
 
 ### Running the Web Application
 
+**Prerequisites**: Ensure the `model.pkl` file exists in the project directory. If not, run the `data_preprocessing.ipynb` notebook first to generate it.
+
 1. Navigate to the project directory:
 ```bash
 cd path/to/Task-1
@@ -173,6 +175,30 @@ Potential improvements for this project:
 - Predictions are estimates and should be used as reference only
 - Model accuracy depends on the quality and quantity of training data
 - Ensure all input values are within reasonable ranges for best results
+
+## ⚠️ Troubleshooting
+
+### "Model file 'model.pkl' not found" Error
+
+If you see this error:
+1. Run the `data_preprocessing.ipynb` notebook completely
+2. Ensure `model.pkl` is generated in the project directory
+3. If deploying to Streamlit Cloud, commit `model.pkl` to your repository
+
+### Scikit-learn Version Mismatch
+
+If you encounter version warnings:
+1. Check your scikit-learn version: `pip show scikit-learn`
+2. Regenerate the model with your current scikit-learn version by running the notebook
+3. Or install the same version used for training: `pip install scikit-learn==1.4.2`
+
+### Deployment to Streamlit Cloud
+
+When deploying to Streamlit Cloud:
+1. Ensure `model.pkl` is committed to your Git repository
+2. Verify all dependencies in `requirements.txt` are correct
+3. The app will automatically install dependencies from `requirements.txt`
+4. Large model files (>100MB) may require Git LFS
 
 ## 🤝 Contributing
 

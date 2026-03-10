@@ -2,9 +2,27 @@ import streamlit as st
 import pandas as pd
 import numpy as np
 import pickle
+import os
 
 # Load the trained model
-model = pickle.load(open('model.pkl', 'rb'))
+@st.cache_resource
+def load_model():
+    try:
+        model_path = 'model.pkl'
+        if not os.path.exists(model_path):
+            st.error("⚠️ Model file 'model.pkl' not found!")
+            st.info("Please run the data_preprocessing.ipynb notebook to generate the model file, then commit it to your repository.")
+            st.stop()
+        with open(model_path, 'rb') as f:
+            model = pickle.load(f)
+        st.success("✅ Model loaded successfully!")
+        return model
+    except Exception as e:
+        st.error(f"❌ Error loading model: {str(e)}")
+        st.info("This might be due to a scikit-learn version mismatch. Try regenerating the model with the current version.")
+        st.stop()
+
+model = load_model()
 
 st.title("House Price Prediction")
 st.write("Enter the details of the house to predict its price.")
